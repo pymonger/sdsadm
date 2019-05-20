@@ -1,0 +1,26 @@
+#!/bin/bash
+BASE_PATH=$(dirname "${BASH_SOURCE}")
+BASE_PATH=$(cd "${BASE_PATH}"; pwd)
+
+
+# set globals
+export ID=$UID
+export GID=$(id -g)
+export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
+
+
+# start subsystem component
+start() {
+  comp=$1
+  cd $1
+  docker-compose down
+  docker-compose up
+}
+
+
+# stop subsystem component
+stop() {
+  comp=$1
+  cd $1
+  docker-compose down
+}

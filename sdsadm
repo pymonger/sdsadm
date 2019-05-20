@@ -1,0 +1,51 @@
+#!/bin/bash
+BASE_PATH=$(dirname "${BASH_SOURCE}")
+BASE_PATH=$(cd "${BASE_PATH}"; pwd)
+source ${BASE_PATH}/funcs
+
+
+# get action
+case "$1" in
+start)
+  action=$1
+  ;;
+stop)
+  action=$1
+  ;;
+restart)
+  action=$1
+  ;;
+*)
+  echo "usage: $0 <start|stop|restart> <mozart|grq|metrics|factotum|verdi|ci>" 2>&1
+  exit 1
+esac
+  
+
+# get subsystem component
+case "$2" in
+mozart)
+  comp=$2
+  ;;
+grq)
+  comp=$2
+  ;;
+metrics)
+  comp=$2
+  ;;
+factotum)
+  comp=$2
+  ;;
+verdi)
+  comp=$2
+  ;;
+ci)
+  comp=$2
+  ;;
+*)
+  echo "usage: $0 <start|stop|restart> <mozart|grq|metrics|factotum|verdi|ci>" 2>&1
+  exit 2
+esac
+
+
+# run action
+$action $comp
