@@ -14,8 +14,7 @@ services:
       - "8898:8898"
       - "9001:9001"
     volumes:
-      - "${HOME}/.sds/cluster/mozart/var/log:/etc/httpd/logs"
-      - "${HOME}/.sds/cluster/mozart/var/log:/var/log"
+      - "${HOME}/.sds/cluster/mozart/var/log/httpd:/etc/httpd/logs"
       - "${HOME}/.sds/cluster/mozart/log:/home/ops/mozart/log"
       - "${HOME}/.aws:/home/ops/.aws:ro"
       - "${HOME}/.netrc:/home/ops/.netrc:ro"
