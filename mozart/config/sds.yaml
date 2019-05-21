@@ -1,0 +1,128 @@
+# HySDS config
+TYPE: hysds
+
+# mozart
+MOZART_PVT_IP: mozart
+MOZART_PUB_IP: mozart
+MOZART_FQDN: mozart
+
+# mozart rabbitmq
+MOZART_RABBIT_PVT_IP: mozart-rabbitmq
+MOZART_RABBIT_PUB_IP: mozart-rabbitmq
+MOZART_RABBIT_FQDN: mozart-rabbitmq
+MOZART_RABBIT_USER: guest
+MOZART_RABBIT_PASSWORD: guest
+
+# mozart redis
+MOZART_REDIS_PVT_IP: mozart-redis
+MOZART_REDIS_PUB_IP: mozart-redis
+MOZART_REDIS_FQDN: mozart-redis
+MOZART_REDIS_PASSWORD: 
+
+# mozart ES
+MOZART_ES_PVT_IP: mozart-elasticsearch
+MOZART_ES_PUB_IP: mozart-elasticsearch
+MOZART_ES_FQDN: mozart-elasticsearch
+
+OPS_USER: ops
+OPS_HOME: /home/ops
+OPS_PASSWORD_HASH: fad3890c412386434153c6fd45ded3762babee8f24851af3bd5a8263
+LDAP_GROUPS: test
+KEY_FILENAME: /home/ops/.ssh/id_rsa
+JENKINS_USER: jenkins
+JENKINS_DIR: /home/ops/jenkins
+
+# metrics
+METRICS_PVT_IP: metrics
+METRICS_PUB_IP: metrics
+METRICS_FQDN: metrics
+
+# metrics redis
+METRICS_REDIS_PVT_IP: metrics-redis
+METRICS_REDIS_PUB_IP: metrics-redis
+METRICS_REDIS_FQDN: metrics-redis
+METRICS_REDIS_PASSWORD: 
+
+# metrics ES
+METRICS_ES_PVT_IP: metrics-elasticsearch
+METRICS_ES_PUB_IP: metrics-elasticsearch
+METRICS_ES_FQDN: metrics-elasticsearch
+
+# grq
+GRQ_PVT_IP: grq
+GRQ_PUB_IP: grq
+GRQ_FQDN: grq
+GRQ_PORT: 8878
+
+# grq ES
+GRQ_ES_PVT_IP: grq-elasticsearch
+GRQ_ES_PUB_IP: grq-elasticsearch
+GRQ_ES_FQDN: grq-elasticsearch
+
+# factotum
+FACTOTUM_PVT_IP: factotum
+FACTOTUM_PUB_IP: factotum
+FACTOTUM_FQDN: factotum
+
+# continuous integration server
+CI_PVT_IP: ci
+CI_PUB_IP: ci
+CI_FQDN: ci
+JENKINS_API_USER: ops
+JENKINS_API_KEY: ops
+
+# verdi build
+VERDI_PVT_IP: ci
+VERDI_PUB_IP: ci
+VERDI_FQDN: ci
+
+# other non-autoscale verdi hosts (optional)
+OTHER_VERDI_HOSTS:
+  - VERDI_PVT_IP:
+    VERDI_PUB_IP:
+    VERDI_FQDN:
+
+# WebDAV product server
+DAV_SERVER: 
+DAV_USER: 
+DAV_PASSWORD: 
+
+# AWS settings for product bucket
+DATASET_AWS_ACCESS_KEY: hysds-k8s
+DATASET_AWS_SECRET_KEY: hysds-k8s
+DATASET_AWS_REGION: us-east-1
+DATASET_S3_ENDPOINT: minio-service:9000
+DATASET_S3_WEBSITE_ENDPOINT: 127.0.0.1:9000
+DATASET_BUCKET: dataset-bucket
+
+# AWS settings for autoscale workers
+AWS_ACCESS_KEY: hysds-k8s
+AWS_SECRET_KEY: hysds-k8s
+AWS_REGION: us-east-1
+S3_ENDPOINT: minio-service:9000
+CODE_BUCKET: code-bucket
+VERDI_PRIMER_IMAGE: s3://code-bucket/hysds-verdi-latest.tar.gz
+VERDI_TAG: latest
+VERDI_UID: 1000
+VERDI_GID: 1000
+QUEUES: dumby-job_worker-small dumby-job_worker-large
+INSTANCE_TYPES: t2.micro t2.micro
+VENUE: ops
+
+# git oauth token
+GIT_OAUTH_TOKEN: 
+
+# DO NOT EDIT ANYTHING BELOW THIS
+
+# user_rules_dataset
+PROVES_URL: https://prov-es.jpl.nasa.gov/beta
+PROVES_IMPORT_URL: https://prov-es.jpl.nasa.gov/beta/api/v0.1/prov_es/import/json
+DATASETS_CFG: /home/ops/verdi/etc/datasets.json
+
+# system jobs queue
+SYSTEM_JOBS_QUEUE: system-jobs-queue
+
+MOZART_ES_CLUSTER: resource_cluster
+METRICS_ES_CLUSTER: metrics_cluster
+DATASET_QUERY_INDEX: grq
+USER_RULES_DATASET_INDEX: user_rules

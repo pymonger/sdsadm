@@ -14,12 +14,24 @@ services:
       - "8898:8898"
       - "9001:9001"
     volumes:
-      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "${HOME}/.sds/cluster/mozart/etc:/home/ops/mozart/etc"
+      - "${HOME}/.sds/cluster/mozart/var/log:/etc/httpd/logs"
+      - "${HOME}/.sds/cluster/mozart/var/log:/var/log"
       - "${HOME}/.sds/cluster/mozart/log:/home/ops/mozart/log"
-      - "${HOME}/.aws:/home/ops/.aws"
-      - "${HOME}/.netrc:/home/ops/.netrc"
+      - "${HOME}/.aws:/home/ops/.aws:ro"
+      - "${HOME}/.netrc:/home/ops/.netrc:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/celeryconfig.py:/home/ops/mozart/etc/celeryconfig.py:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/supervisord.conf:/home/ops/mozart/etc/supervisord.conf:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/datasets.json:/home/ops/mozart/etc/datasets.json:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/job_status.template:/home/ops/mozart/etc/job_status.template:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/worker_status.template:/home/ops/mozart/etc/worker_status.template:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/task_status.template:/home/ops/mozart/etc/task_status.template:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/event_status.template:/home/ops/mozart/etc/event_status.template:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/indexer.conf:/home/ops/mozart/etc/indexer.conf:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/orchestrator_datasets.json:/home/ops/mozart/etc/orchestrator_datasets.json:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/orchestrator_jobs.json:/home/ops/mozart/etc/orchestrator_jobs.json:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/settings.cfg:/home/ops/mozart/etc/settings.cfg:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/utils.py:/home/ops/mozart/etc/job_creators/utils.py:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/utils_job.py:/home/ops/mozart/etc/job_creators/utils_job.py:ro"
     volumes_from:
       - redis
     links:
@@ -35,7 +47,14 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
+      - "${HOME}/.sds/cluster/mozart/var/log/rabbitmq:/var/log/rabbitmq"
       - "${HOME}/.sds/cluster/mozart/var/lib/rabbitmq:/var/lib/rabbitmq"
+      - "${HOME}/.sds/cluster/mozart/etc/rabbitmq-server:/etc/default/rabbitmq-server:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro"
+    environment:
+      - RABBITMQ_LOG_BASE=/var/log/rabbitmq
+      - RABBITMQ_LOGS=$${RABBITMQ_LOG_BASE}/$${RABBITMQ_NODENAME}.log
+      - RABBITMQ_SASL_LOGS=$${RABBITMQ_LOG_BASE}/$${RABBITMQ_NODENAME}-sasl.log
   redis:
     image: hysds/redis
     hostname: mozart-redis
@@ -44,7 +63,9 @@ services:
     ports:
       - "6379:6379"
     volumes:
+      - "${HOME}/.sds/cluster/mozart/var/log/redis:/var/log/redis"
       - "${HOME}/.sds/cluster/mozart/var/lib/redis:/data/redis"
+      - "${HOME}/.sds/cluster/mozart/etc/redis-config:/redis-master/redis.conf:ro"
   elasticsearch:
     image: hysds/elasticsearch
     hostname: mozart-elasticsearch
@@ -54,6 +75,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
+      - "${HOME}/.sds/cluster/mozart/var/log/elasticsearch:/var/log/elasticsearch"
       - "${HOME}/.sds/cluster/mozart/var/lib/elasticsearch/config:/usr/share/elasticsearch/config"
       - "${HOME}/.sds/cluster/mozart/var/lib/elasticsearch/data:/usr/share/elasticsearch/data"
     environment:

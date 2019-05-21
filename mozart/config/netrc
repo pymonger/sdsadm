@@ -1,0 +1,3 @@
+machine mozart-rabbitmq login guest password guest
+macdef init
+
