@@ -74,14 +74,11 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - "${HOME}/.sds/cluster/mozart/var/log/elasticsearch:/var/log/elasticsearch"
-      - "${HOME}/.sds/cluster/mozart/var/lib/elasticsearch/config:/usr/share/elasticsearch/config"
+      - "${HOME}/.sds/cluster/mozart/var/log/elasticsearch:/usr/share/elasticsearch/logs"
+      - "${HOME}/.sds/cluster/mozart/etc/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/logging.yml:/usr/share/elasticsearch/config/logging.yml:ro"
       - "${HOME}/.sds/cluster/mozart/var/lib/elasticsearch/data:/usr/share/elasticsearch/data"
     environment:
       - ES_HEAP_SIZE=${ES_HEAP_SIZE}m
       - MAX_LOCKED_MEMORY=unlimited
-    command: [ "elasticsearch",
-               "-Des.node.name='mozart-elasticsearch'",
-               "-Des.cluster.name='resource_cluster'",
-               "-Des.bootstrap.mlockall=true",
-               "-Des.network.host=0" ]
+    command: [ "elasticsearch" ]
