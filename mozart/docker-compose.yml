@@ -64,7 +64,24 @@ services:
     volumes:
       - "${HOME}/.sds/cluster/mozart/var/log/redis:/var/log/redis"
       - "${HOME}/.sds/cluster/mozart/var/lib/redis:/data/redis"
-      - "${HOME}/.sds/cluster/mozart/etc/redis-config:/redis-master/redis.conf:ro"
+      - "${HOME}/.sds/cluster/mozart/etc/redis-config:/etc/redis.conf:ro"
+    sysctls:
+      #- vm.overcommit_memory=1
+      #- vm.swappiness=0
+      #- net.ipv4.tcp_sack=1
+      #- net.ipv4.tcp_timestamps=1
+      #- net.ipv4.tcp_window_scaling=1
+      #- net.ipv4.tcp_congestion_control=cubic
+      #- net.ipv4.tcp_syncookies=1
+      #- net.ipv4.tcp_tw_recycle=1
+      #- backlog setting
+      #- net.ipv4.tcp_max_syn_backlog=102400
+      - net.core.somaxconn=65535
+      #- net.core.rmem_max=102400
+      #- net.core.wmem_max=102400
+      #- fs.file-max=102400
+    command: [ "redis-server",
+               "/etc/redis.conf" ]
   elasticsearch:
     image: hysds/elasticsearch
     hostname: mozart-elasticsearch

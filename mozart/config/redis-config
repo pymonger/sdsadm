@@ -2,7 +2,7 @@ bind 0.0.0.0
 protected-mode no
 port 6379
 tcp-backlog 65535
-unixsocket /tmp/redis.sock
+unixsocket /data/redis/redis.sock
 unixsocketperm 777
 timeout 300
 tcp-keepalive 300
