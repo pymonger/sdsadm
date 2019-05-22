@@ -7,12 +7,31 @@ BASE_PATH=$(cd "${BASE_PATH}"; pwd)
 export ID=$UID
 export GID=$(id -g)
 export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
+export SDS_DIR=$HOME/.sds
+export SDS_CLUSTER_DIR=$SDS_DIR/cluster
+
+
+# initialize .sds directory
+init() {
+  comp=$1
+  shift
+  comp_dir=$SDS_CLUSTER_DIR/$comp
+  if [ ! -d "${comp_dir}" ]; then
+    mkdir -p $comp_dir
+  fi
+  if [ ! -e "$BASE_PATH/$comp/init.sh" ]; then
+    echo "Init script for $comp not found at $BASE_PATH/$comp." >&2
+    exit 4
+  fi
+  $BASE_PATH/$comp/init.sh
+}
 
 
 # start subsystem component
 start() {
   comp=$1
   shift
+  init $comp
   cd $BASE_PATH/$comp
   docker-compose down
   docker-compose up $@
@@ -23,6 +42,7 @@ start() {
 stop() {
   comp=$1
   shift
+  init $comp
   cd $BASE_PATH/$comp
   docker-compose down $@
 }
@@ -32,6 +52,7 @@ stop() {
 logs() {
   comp=$1
   shift
+  init $comp
   cd $BASE_PATH/$comp
   docker-compose logs $@
 }
