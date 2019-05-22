@@ -3,7 +3,7 @@ services:
   mozart:
     hostname: mozart
     container_name: mozart
-    image: hysds/mozart
+    image: hysds/mozart:${MOZART_TAG}
     init: true
     user: "${ID}:${GID}"
     ports:
@@ -38,7 +38,7 @@ services:
       - redis
       - elasticsearch
   rabbitmq:
-    image: hysds/rabbitmq
+    image: hysds/rabbitmq:${RABBITMQ_TAG}
     hostname: mozart-rabbitmq
     container_name: mozart-rabbitmq
     user: "${ID}:${GID}"
@@ -59,7 +59,7 @@ services:
       - RABBITMQ_LOGS=$${RABBITMQ_LOG_BASE}/$${RABBITMQ_NODENAME}.log
       - RABBITMQ_SASL_LOGS=$${RABBITMQ_LOG_BASE}/$${RABBITMQ_NODENAME}-sasl.log
   redis:
-    image: hysds/redis
+    image: hysds/redis:${REDIS_TAG}
     hostname: mozart-redis
     container_name: mozart-redis
     user: "${ID}:${GID}"
@@ -91,7 +91,7 @@ services:
     command: [ "redis-server",
                "/etc/redis.conf" ]
   elasticsearch:
-    image: hysds/elasticsearch
+    image: hysds/elasticsearch:${ELASTICSEARCH_TAG}
     hostname: mozart-elasticsearch
     container_name: mozart-elasticsearch
     user: "${ID}:${GID}"

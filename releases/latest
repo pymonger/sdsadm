@@ -1,0 +1,4 @@
+export MOZART_TAG=latest
+export RABBITMQ_TAG=latest
+export REDIS_TAG=latest
+export ELASTICSEARCH_TAG=latest

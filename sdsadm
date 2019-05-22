@@ -6,8 +6,40 @@ source ${BASE_PATH}/funcs
 
 # usage
 usage() {
-  echo "usage: $0 <start|stop|restart|logs|logsf> <mozart|grq|metrics|factotum|verdi|ci>" 2>&1
+  echo "usage: $0 <release> <start|stop|restart|logs|logsf> <mozart|grq|metrics|factotum|verdi|ci>" >&2
 }
+
+
+# set default release
+release="latest"
+
+
+# parse options
+PARAMS=""
+while (( "$#" )); do
+  case "$1" in
+    -r|--release)
+      release=$2
+      shift 2
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS=$@
+      break
+      ;;
+  esac
+done
+
+
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
 
 
 # get action
@@ -32,6 +64,14 @@ mozart|grq|metrics|factotum|verdi|ci)
   usage
   exit 2
 esac
+
+
+# source release
+if [ ! -e "$BASE_PATH/releases/$release" ]; then
+  echo "Release $release not found in $BASE_PATH/releases." >&2
+  exit 3
+fi
+source $BASE_PATH/releases/${release}
 
 
 # run action

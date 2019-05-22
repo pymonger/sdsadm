@@ -1,0 +1,4 @@
+export MOZART_TAG=20190521
+export RABBITMQ_TAG=3-management
+export REDIS_TAG=20190521
+export ELASTICSEARCH_TAG=1.7
