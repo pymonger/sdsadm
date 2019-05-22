@@ -6,7 +6,11 @@ BASE_PATH=$(cd "${BASE_PATH}"; pwd)
 # set globals
 export ID=$UID
 export GID=$(id -g)
-export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
+if [ -e "/usr/bin/sw_vers" ]; then
+  export ES_HEAP_SIZE=$(sysctl hw.memsize | awk '{print $2/1024/1024}')
+else
+  export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
+fi
 export SDS_DIR=$HOME/.sds
 export SDS_CLUSTER_DIR=$SDS_DIR/cluster
 
