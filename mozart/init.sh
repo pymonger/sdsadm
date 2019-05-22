@@ -22,6 +22,6 @@ mkdir -p $comp_dir/var/lib/elasticsearch/data \
 
 
 # copy configs
-if [ -e "$comp_dir/etc" ]; then
+if [ ! -e "$comp_dir/etc" ]; then
   cp -rp mozart/config $comp_dir/etc
 fi
