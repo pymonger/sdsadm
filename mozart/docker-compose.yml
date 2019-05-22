@@ -84,6 +84,10 @@ services:
       #- net.core.rmem_max=102400
       #- net.core.wmem_max=102400
       #- fs.file-max=102400
+    #ulimits:
+    #  nofile:
+    #      soft: 102400
+    #      hard: 102400
     command: [ "redis-server",
                "/etc/redis.conf" ]
   elasticsearch:
