@@ -50,6 +50,10 @@ services:
       - "${HOME}/.sds/cluster/mozart/var/lib/rabbitmq:/var/lib/rabbitmq"
       - "${HOME}/.sds/cluster/mozart/etc/rabbitmq-server:/etc/default/rabbitmq-server:ro"
       - "${HOME}/.sds/cluster/mozart/etc/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro"
+    #ulimits:
+    #  nofile:
+    #      soft: 102400
+    #      hard: 102400
     environment:
       - RABBITMQ_LOG_BASE=/var/log/rabbitmq
       - RABBITMQ_LOGS=$${RABBITMQ_LOG_BASE}/$${RABBITMQ_NODENAME}.log
