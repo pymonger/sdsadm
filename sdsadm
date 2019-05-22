@@ -4,48 +4,35 @@ BASE_PATH=$(cd "${BASE_PATH}"; pwd)
 source ${BASE_PATH}/funcs
 
 
+# usage
+usage() {
+  echo "usage: $0 <start|stop|restart|logs|logsf> <mozart|grq|metrics|factotum|verdi|ci>" 2>&1
+}
+
+
 # get action
 case "$1" in
-start)
+start|stop|restart|logs)
   action=$1
-  ;;
-stop)
-  action=$1
-  ;;
-restart)
-  action=$1
+  shift
   ;;
 *)
-  echo "usage: $0 <start|stop|restart> <mozart|grq|metrics|factotum|verdi|ci>" 2>&1
+  usage
   exit 1
 esac
   
 
 # get subsystem component
-case "$2" in
-mozart)
-  comp=$2
-  ;;
-grq)
-  comp=$2
-  ;;
-metrics)
-  comp=$2
-  ;;
-factotum)
-  comp=$2
-  ;;
-verdi)
-  comp=$2
-  ;;
-ci)
-  comp=$2
+case "$1" in
+mozart|grq|metrics|factotum|verdi|ci)
+  comp=$1
+  shift
   ;;
 *)
-  echo "usage: $0 <start|stop|restart> <mozart|grq|metrics|factotum|verdi|ci>" 2>&1
+  usage
   exit 2
 esac
 
 
 # run action
-$action $comp
+$action $comp $@

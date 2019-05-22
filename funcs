@@ -12,15 +12,26 @@ export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1
 # start subsystem component
 start() {
   comp=$1
-  cd $1
+  shift
+  cd $BASE_PATH/$comp
   docker-compose down
-  docker-compose up -d
+  docker-compose up $@
 }
 
 
 # stop subsystem component
 stop() {
   comp=$1
-  cd $1
-  docker-compose down
+  shift
+  cd $BASE_PATH/$comp
+  docker-compose down $@
+}
+
+
+# run logs on subsystem component
+logs() {
+  comp=$1
+  shift
+  cd $BASE_PATH/$comp
+  docker-compose logs $@
 }
