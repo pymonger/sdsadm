@@ -4,8 +4,40 @@ BASE_PATH=$(cd "${BASE_PATH}/.."; pwd)
 source ${BASE_PATH}/funcs
 
 
+# prompt if overwriting
+prompt="-i"
+
+
+# parse options
+PARAMS=""
+while (( "$#" )); do
+  case "$1" in
+    -f|--force)
+      prompt=""
+      shift 1
+      ;;
+    --) # end argument parsing
+      shift
+      break
+      ;;
+    -*|--*=) # unsupported flags
+      echo "Error: Unsupported flag $1" >&2
+      exit 1
+      ;;
+    *) # preserve positional arguments
+      PARAMS=$@
+      break
+      ;;
+  esac
+done
+
+
+# set positional arguments in their proper place
+eval set -- "$PARAMS"
+
+
 # globals
-comp_dir=$SDS_CLUSTER_DIR/mozart
+comp_dir=$(get_comp_dir mozart)
 
 
 # create log directories
@@ -22,6 +54,9 @@ mkdir -p $comp_dir/var/lib/elasticsearch/data \
 
 
 # copy configs
-if [ ! -e "$comp_dir/etc" ]; then
-  cp -rp mozart/config $comp_dir/etc
+if [ -e "$comp_dir/etc" ]; then
+  rsync -rptvzL $comp_dir/etc/ $comp_dir/etc.bak > /dev/null
+else
+  mkdir -p $comp_dir/etc
 fi
+cp -rp $prompt mozart/config/* $comp_dir/etc/

@@ -1,7 +1,6 @@
 # sdsadm
-HySDS cluster administration CLI tool
+HySDS cluster container orchestration CLI tool
 
 ## Requirements
 - docker
 - docker-compose
-- anaconda

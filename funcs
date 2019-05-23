@@ -11,15 +11,29 @@ if [ -e "/usr/bin/sw_vers" ]; then
 else
   export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
 fi
-export SDS_DIR=$HOME/.sds
-export SDS_CLUSTER_DIR=$SDS_DIR/cluster
 
 
-# initialize .sds directory
+# get subsystem component directory
+get_comp_dir() {
+  case "$1" in
+  mozart|metrics|verdi)
+    echo "$HOME/$1"
+    ;;
+  grq)
+    echo "$HOME/sciflo"
+    ;;
+  factotum|ci)
+    echo "$HOME/verdi"
+    ;;
+  esac
+}
+
+
+# initialize subsystem component directory
 init() {
   comp=$1
   shift
-  comp_dir=$SDS_CLUSTER_DIR/$comp
+  comp_dir=$(get_comp_dir $comp)
   if [ ! -d "${comp_dir}" ]; then
     mkdir -p $comp_dir
   fi
@@ -27,7 +41,7 @@ init() {
     echo "Init script for $comp not found at $BASE_PATH/$comp." >&2
     exit 4
   fi
-  $BASE_PATH/$comp/init.sh
+  $BASE_PATH/$comp/init.sh $@
 }
 
 
@@ -35,7 +49,6 @@ init() {
 start() {
   comp=$1
   shift
-  init $comp
   cd $BASE_PATH/$comp
   docker-compose down
   docker-compose up $@
@@ -46,7 +59,6 @@ start() {
 stop() {
   comp=$1
   shift
-  init $comp
   cd $BASE_PATH/$comp
   docker-compose down $@
 }
@@ -56,7 +68,6 @@ stop() {
 logs() {
   comp=$1
   shift
-  init $comp
   cd $BASE_PATH/$comp
   docker-compose logs $@
 }
