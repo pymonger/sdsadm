@@ -1,0 +1,81 @@
+version: '2.4'
+services:
+  metrics:
+    hostname: metrics
+    container_name: metrics
+    image: hysds/metrics:${METRICS_TAG}
+    init: true
+    user: "${ID}:${GID}"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "5601:5601"
+      - "9001:9001"
+    volumes:
+      - "${HOME}/metrics/log:/home/ops/metrics/log"
+      - "${HOME}/metrics/log/httpd:/etc/httpd/logs"
+      - "${HOME}/.aws:/home/ops/.aws:ro"
+      - "${HOME}/.netrc:/home/ops/.netrc:ro"
+      - "${HOME}/metrics/etc/celeryconfig.py:/home/ops/metrics/etc/celeryconfig.py:ro"
+      - "${HOME}/metrics/etc/supervisord.conf:/home/ops/metrics/etc/supervisord.conf:ro"
+      - "${HOME}/metrics/etc/datasets.json:/home/ops/metrics/etc/datasets.json:ro"
+      - "${HOME}/metrics/etc/indexer.conf:/home/ops/metrics/etc/indexer.conf:ro"
+      - "${HOME}/metrics/etc/kibana.yml:/home/ops/kibana/config/kibana.yml:ro"
+    volumes_from:
+      - redis
+    links:
+      - redis
+      - elasticsearch
+  redis:
+    image: hysds/redis:${REDIS_TAG}
+    hostname: metrics-redis
+    container_name: metrics-redis
+    user: "${ID}:${GID}"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "${HOME}/metrics/log/redis:/var/log/redis"
+      - "${HOME}/metrics/var/lib/redis:/data/redis"
+      - "${HOME}/metrics/etc/redis-config:/etc/redis.conf:ro"
+    sysctls:
+      #- vm.overcommit_memory=1
+      #- vm.swappiness=0
+      #- net.ipv4.tcp_sack=1
+      #- net.ipv4.tcp_timestamps=1
+      #- net.ipv4.tcp_window_scaling=1
+      #- net.ipv4.tcp_congestion_control=cubic
+      #- net.ipv4.tcp_syncookies=1
+      #- net.ipv4.tcp_tw_recycle=1
+      #- backlog setting
+      #- net.ipv4.tcp_max_syn_backlog=102400
+      - net.core.somaxconn=65535
+      #- net.core.rmem_max=102400
+      #- net.core.wmem_max=102400
+      #- fs.file-max=102400
+    #ulimits:
+    #  nofile:
+    #      soft: 102400
+    #      hard: 102400
+    command: [ "redis-server",
+               "/etc/redis.conf" ]
+  elasticsearch:
+    image: docker.io/elasticsearch:6.4.2
+    hostname: metrics-elasticsearch
+    container_name: metrics-elasticsearch
+    user: "${ID}:${GID}"
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - "${HOME}/metrics/log/elasticsearch:/usr/share/elasticsearch/logs"
+      - "${HOME}/metrics/etc/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+      - "${HOME}/metrics/var/lib/elasticsearch/data:/usr/share/elasticsearch/data"
+    ulimits:
+      memlock:
+          soft: -1
+          hard: -1
+    sysctls:
+      - net.core.somaxconn=65535
+      - vm.max_map_count=262144
+    environment:
+      - "ES_JAVA_OPTS=-Xms${ES_HEAP_SIZE}m -Xmx${ES_HEAP_SIZE}m"
