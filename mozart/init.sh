@@ -60,3 +60,4 @@ else
   mkdir -p $comp_dir/etc
 fi
 cp -rp $prompt mozart/config/* $comp_dir/etc/
+cp -rp $prompt $BASE_PATH/config/datasets.json $comp_dir/etc/
