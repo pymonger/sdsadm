@@ -21,6 +21,7 @@ services:
       - "${HOME}/metrics/etc/datasets.json:/home/ops/metrics/etc/datasets.json:ro"
       - "${HOME}/metrics/etc/indexer.conf:/home/ops/metrics/etc/indexer.conf:ro"
       - "${HOME}/metrics/etc/kibana.yml:/home/ops/kibana/config/kibana.yml:ro"
+      - "${HOME}/metrics/etc/docker-entrypoint.sh:/docker-entrypoint.sh:ro"
     volumes_from:
       - redis
     links:
@@ -62,7 +63,6 @@ services:
     image: docker.io/elasticsearch:${ELK_TAG}
     hostname: metrics-elasticsearch
     container_name: metrics-elasticsearch
-    user: "${ID}:${GID}"
     ports:
       - "9200:9200"
       - "9300:9300"

@@ -3,7 +3,7 @@ node.name: "metrics-elasticsearch"
 bootstrap.memory_lock: true
 network.host: 0
 http.port: 9200
-thread_pool.bulk.queue_size: 100000
+thread_pool.write.queue_size: 100000
 thread_pool.search.queue_size: 100000
 
 # minimum_master_nodes need to be explicitly set when bound on a public IP
