@@ -1,6 +1,7 @@
 export RABBITMQ_TAG=latest
 export REDIS_TAG=latest
 export ELASTICSEARCH_TAG=latest
+export ELK_TAG=6.4.2
 export MOZART_TAG=latest
 export GRQ_TAG=latest
 export METRICS_TAG=latest

@@ -59,7 +59,7 @@ services:
     command: [ "redis-server",
                "/etc/redis.conf" ]
   elasticsearch:
-    image: docker.io/elasticsearch:6.4.2
+    image: docker.io/elasticsearch:${ELK_TAG}
     hostname: metrics-elasticsearch
     container_name: metrics-elasticsearch
     user: "${ID}:${GID}"
