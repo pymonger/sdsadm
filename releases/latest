@@ -1,4 +1,8 @@
-export MOZART_TAG=latest
 export RABBITMQ_TAG=latest
 export REDIS_TAG=latest
 export ELASTICSEARCH_TAG=latest
+export MOZART_TAG=latest
+export GRQ_TAG=latest
+export METRICS_TAG=latest
+export VERDI_TAG=latest
+export CI_TAG=latest
