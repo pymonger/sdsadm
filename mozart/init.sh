@@ -59,5 +59,5 @@ if [ -e "$comp_dir/etc" ]; then
 else
   mkdir -p $comp_dir/etc
 fi
-cp -rp $prompt mozart/config/* $comp_dir/etc/
-cp -rp $prompt $BASE_PATH/config/datasets.json $comp_dir/etc/
+cp -rp $prompt $BASE_PATH/config/* $comp_dir/etc/ # copy global configs
+cp -rp $prompt mozart/config/* $comp_dir/etc/     # copy component-specific configs
