@@ -6,7 +6,7 @@ source ${BASE_PATH}/funcs
 
 # usage
 usage() {
-  echo "usage: $0 [-r|--release <release tag>] <init|start|stop|restart|logs> <mozart|grq|metrics|factotum|verdi|ci>" >&2
+  echo "usage: $0 [-r|--release <release tag>] <init|start|stop|restart|logs|ps> <mozart|grq|metrics|factotum|verdi|ci>" >&2
 }
 
 
@@ -44,7 +44,7 @@ eval set -- "$PARAMS"
 
 # get action
 case "$1" in
-init|start|stop|restart|logs)
+init|start|stop|restart|logs|ps)
   action=$1
   shift
   ;;

@@ -71,3 +71,12 @@ logs() {
   cd $BASE_PATH/$comp
   docker-compose logs $@
 }
+
+
+# run ps on subsystem component
+ps() {
+  comp=$1
+  shift
+  cd $BASE_PATH/$comp
+  docker-compose ps $@
+}
