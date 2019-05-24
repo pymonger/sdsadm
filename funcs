@@ -11,6 +11,7 @@ if [ -e "/usr/bin/sw_vers" ]; then
 else
   export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
 fi
+export DATA_DIR=/data
 
 
 # get subsystem component directory

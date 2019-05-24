@@ -1,0 +1,24 @@
+version: '2.4'
+services:
+  factotum:
+    hostname: factotum
+    container_name: factotum
+    image: hysds/verdi:${VERDI_TAG}
+    init: true
+    user: "${ID}:${GID}"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8085:8085"
+      - "9001:9001"
+    volumes:
+      - "/sys/fs/cgroup:/sys/fs/cgroup:ro"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${DATA_DIR}/work:/data/work"
+      - "${HOME}/verdi/log:/home/ops/verdi/log"
+      - "${HOME}/.aws:/home/ops/.aws:ro"
+      - "${HOME}/.netrc:/home/ops/.netrc:ro"
+      - "${HOME}/verdi/etc/celeryconfig.py:/home/ops/verdi/etc/celeryconfig.py:ro"
+      - "${HOME}/verdi/etc/supervisord.conf:/home/ops/verdi/etc/supervisord.conf:ro"
+      - "${HOME}/verdi/etc/conf.d/factotum.conf:/home/ops/verdi/etc/conf.d/factotum.conf:ro"
+      - "${HOME}/verdi/etc/datasets.json:/home/ops/verdi/etc/datasets.json:ro"
