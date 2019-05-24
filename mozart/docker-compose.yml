@@ -14,8 +14,8 @@ services:
       - "8898:8898"
       - "9001:9001"
     volumes:
-      - "${HOME}/mozart/var/log/httpd:/etc/httpd/logs"
       - "${HOME}/mozart/log:/home/ops/mozart/log"
+      - "${HOME}/mozart/log/httpd:/etc/httpd/logs"
       - "${HOME}/.aws:/home/ops/.aws:ro"
       - "${HOME}/.netrc:/home/ops/.netrc:ro"
       - "${HOME}/mozart/etc/celeryconfig.py:/home/ops/mozart/etc/celeryconfig.py:ro"
@@ -46,7 +46,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - "${HOME}/mozart/var/log/rabbitmq:/var/log/rabbitmq"
+      - "${HOME}/mozart/log/rabbitmq:/var/log/rabbitmq"
       - "${HOME}/mozart/var/lib/rabbitmq:/var/lib/rabbitmq"
       - "${HOME}/mozart/etc/rabbitmq-server:/etc/default/rabbitmq-server:ro"
       - "${HOME}/mozart/etc/rabbitmq.config:/etc/rabbitmq/rabbitmq.config:ro"
@@ -66,7 +66,7 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - "${HOME}/mozart/var/log/redis:/var/log/redis"
+      - "${HOME}/mozart/log/redis:/var/log/redis"
       - "${HOME}/mozart/var/lib/redis:/data/redis"
       - "${HOME}/mozart/etc/redis-config:/etc/redis.conf:ro"
     sysctls:
@@ -99,7 +99,7 @@ services:
       - "9200:9200"
       - "9300:9300"
     volumes:
-      - "${HOME}/mozart/var/log/elasticsearch:/usr/share/elasticsearch/logs"
+      - "${HOME}/mozart/log/elasticsearch:/usr/share/elasticsearch/logs"
       - "${HOME}/mozart/etc/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
       - "${HOME}/mozart/etc/logging.yml:/usr/share/elasticsearch/config/logging.yml:ro"
       - "${HOME}/mozart/var/lib/elasticsearch/data:/usr/share/elasticsearch/data"

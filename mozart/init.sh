@@ -41,10 +41,10 @@ comp_dir=$(get_comp_dir mozart)
 
 
 # create log directories
-mkdir -p $comp_dir/var/log/elasticsearch \
-         $comp_dir/var/log/httpd \
-         $comp_dir/var/log/rabbitmq \
-         $comp_dir/var/log/redis
+mkdir -p $comp_dir/log/elasticsearch \
+         $comp_dir/log/httpd \
+         $comp_dir/log/rabbitmq \
+         $comp_dir/log/redis
 
 
 # create lib directories
