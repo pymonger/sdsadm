@@ -1,9 +1,9 @@
 export RABBITMQ_TAG=3-management
-export REDIS_TAG=20190521
+export REDIS_TAG=v3.0.0-rc.0
 export ELASTICSEARCH_TAG=1.7
 export ELK_TAG=6.4.2
-export MOZART_TAG=20190521
-export GRQ_TAG=20190521
-export METRICS_TAG=20190521
-export VERDI_TAG=20190521
-export CI_TAG=20190521
+export MOZART_TAG=v3.0.0-rc.0
+export GRQ_TAG=v3.0.0-rc.0
+export METRICS_TAG=v3.0.0-rc.0
+export VERDI_TAG=v3.0.0-rc.0
+export CI_TAG=v3.0.0-rc.0
