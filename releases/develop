@@ -1,0 +1,9 @@
+export RABBITMQ_TAG=3-management
+export REDIS_TAG=develop
+export ELASTICSEARCH_TAG=1.7
+export ELK_TAG=6.4.2
+export MOZART_TAG=develop
+export GRQ_TAG=develop
+export METRICS_TAG=develop
+export VERDI_TAG=develop
+export CI_TAG=develop
