@@ -77,6 +77,7 @@ services:
     volumes:
       - "${HOME}/metrics/log/elasticsearch:/usr/share/elasticsearch/logs"
       - "${HOME}/metrics/etc/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro"
+      - "${HOME}/metrics/etc/log4j2.properties:/usr/share/elasticsearch/config/log4j2.properties:ro"
       - "${HOME}/metrics/var/lib/elasticsearch/data:/usr/share/elasticsearch/data"
     ulimits:
       memlock:

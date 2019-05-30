@@ -68,6 +68,7 @@ sudo sysctl --system
 # copy global configs
 cp -rp $prompt $BASE_PATH/config/datasets.json $comp_dir/etc/
 cp -rp $prompt $BASE_PATH/config/redis-config $comp_dir/etc/
+cp -rp $prompt $BASE_PATH/config/log4j2.properties $comp_dir/etc/
 
 
 # copy component-specific configs
