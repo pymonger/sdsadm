@@ -38,8 +38,14 @@ services:
       - "${HOME}/metrics/log/redis:/var/log/redis"
       - "${HOME}/metrics/var/lib/redis:/data/redis"
       - "${HOME}/metrics/etc/redis-config:/etc/redis.conf:ro"
-for elasticsearch  Cannot start service elasticsearch: OCI runtime create failed: sysctl "vm.max_map_count" is not in a separate kernel namespace: unknown
-
+    #########################################################
+    # The following are commented out until docker supports
+    # them becoming namespaced:
+    # https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime
+    # For now these are being set on the host via sysctld
+    # using the ../config/10-hysds.conf file and the init.sh
+    # script.
+    #########################################################
     sysctls:
       #- vm.overcommit_memory=1
       #- vm.swappiness=0
@@ -55,10 +61,10 @@ for elasticsearch  Cannot start service elasticsearch: OCI runtime create failed
       #- net.core.rmem_max=102400
       #- net.core.wmem_max=102400
       #- fs.file-max=102400
-    #ulimits:
-    #  nofile:
-    #      soft: 102400
-    #      hard: 102400
+    ulimits:
+      nofile:
+          soft: 102400
+          hard: 102400
     command: [ "redis-server",
                "/etc/redis.conf" ]
   elasticsearch:
@@ -76,6 +82,17 @@ for elasticsearch  Cannot start service elasticsearch: OCI runtime create failed
       memlock:
           soft: -1
           hard: -1
+      nofile:
+          soft: 102400
+          hard: 102400
+    #########################################################
+    # The following are commented out until docker supports
+    # them becoming namespaced:
+    # https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime
+    # For now these are being set on the host via sysctld
+    # using the ../config/10-hysds.conf file and the init.sh
+    # script.
+    #########################################################
     sysctls:
       #- vm.max_map_count=262144
       - net.core.somaxconn=65535
