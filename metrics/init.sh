@@ -71,7 +71,11 @@ cp -rp $prompt metrics/config/* $comp_dir/etc/
 
 # fix permissions for elasticsearch container:
 # https://www.elastic.co/guide/en/elasticsearch/reference/6.7/docker.html#docker-prod-cluster-composefile
-chmod -R g+rwx $comp_dir/log/elasticsearch || :
+sudo chmod -R g+rwx $comp_dir/log/elasticsearch || :
 sudo chown -R 1000 $comp_dir/log/elasticsearch || :
-chmod -R g+rwx $comp_dir/var/lib/elasticsearch || :
+sudo chmod -R g+rwx $comp_dir/var/lib/elasticsearch || :
 sudo chown -R 1000 $comp_dir/var/lib/elasticsearch || :
+
+# increase limits
+sudo cp -rp $prompt $BASE_PATH/config/10-metrics.conf /etc/sysctl.d/
+sudo sysctl --system
