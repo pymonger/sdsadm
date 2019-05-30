@@ -38,6 +38,8 @@ services:
       - "${HOME}/metrics/log/redis:/var/log/redis"
       - "${HOME}/metrics/var/lib/redis:/data/redis"
       - "${HOME}/metrics/etc/redis-config:/etc/redis.conf:ro"
+for elasticsearch  Cannot start service elasticsearch: OCI runtime create failed: sysctl "vm.max_map_count" is not in a separate kernel namespace: unknown
+
     sysctls:
       #- vm.overcommit_memory=1
       #- vm.swappiness=0

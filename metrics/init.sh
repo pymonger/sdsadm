@@ -60,6 +60,11 @@ else
 fi
 
 
+# increase limits
+sudo cp -rp $prompt $BASE_PATH/config/10-hysds.conf /etc/sysctl.d/
+sudo sysctl --system
+
+
 # copy global configs
 cp -rp $prompt $BASE_PATH/config/datasets.json $comp_dir/etc/
 cp -rp $prompt $BASE_PATH/config/redis-config $comp_dir/etc/
@@ -75,7 +80,3 @@ sudo chmod -R g+rwx $comp_dir/log/elasticsearch || :
 sudo chown -R 1000 $comp_dir/log/elasticsearch || :
 sudo chmod -R g+rwx $comp_dir/var/lib/elasticsearch || :
 sudo chown -R 1000 $comp_dir/var/lib/elasticsearch || :
-
-# increase limits
-sudo cp -rp $prompt $comp_dir/etc/10-metrics.conf /etc/sysctl.d/
-sudo sysctl --system
