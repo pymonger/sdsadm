@@ -77,5 +77,5 @@ sudo chmod -R g+rwx $comp_dir/var/lib/elasticsearch || :
 sudo chown -R 1000 $comp_dir/var/lib/elasticsearch || :
 
 # increase limits
-sudo cp -rp $prompt $comp_dir/config/10-metrics.conf /etc/sysctl.d/
+sudo cp -rp $prompt $comp_dir/etc/10-metrics.conf /etc/sysctl.d/
 sudo sysctl --system
