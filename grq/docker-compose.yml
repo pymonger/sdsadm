@@ -36,6 +36,14 @@ services:
       - "${HOME}/sciflo/log/redis:/var/log/redis"
       - "${HOME}/sciflo/var/lib/redis:/data/redis"
       - "${HOME}/sciflo/etc/redis-config:/etc/redis.conf:ro"
+    #########################################################
+    # The following are commented out until docker supports
+    # them becoming namespaced:
+    # https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime
+    # For now these are being set on the host via sysctld
+    # using the ../config/10-hysds.conf file and the init.sh
+    # script.
+    #########################################################
     sysctls:
       #- vm.overcommit_memory=1
       #- vm.swappiness=0
@@ -51,10 +59,10 @@ services:
       #- net.core.rmem_max=102400
       #- net.core.wmem_max=102400
       #- fs.file-max=102400
-    #ulimits:
-    #  nofile:
-    #      soft: 102400
-    #      hard: 102400
+    ulimits:
+      nofile:
+          soft: 102400
+          hard: 102400
     command: [ "redis-server",
                "/etc/redis.conf" ]
   elasticsearch:
@@ -74,6 +82,20 @@ services:
       memlock:
           soft: -1
           hard: -1
+      nofile:
+          soft: 102400
+          hard: 102400
+    #########################################################
+    # The following are commented out until docker supports
+    # them becoming namespaced:
+    # https://docs.docker.com/engine/reference/commandline/run/#configure-namespaced-kernel-parameters-sysctls-at-runtime
+    # For now these are being set on the host via sysctld
+    # using the ../config/10-hysds.conf file and the init.sh
+    # script.
+    #########################################################
+    sysctls:
+      #- vm.max_map_count=262144
+      - net.core.somaxconn=65535
     environment:
       - ES_HEAP_SIZE=${ES_HEAP_SIZE}m
       - MAX_LOCKED_MEMORY=unlimited

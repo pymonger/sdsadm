@@ -60,6 +60,11 @@ else
 fi
 
 
+# increase limits
+sudo cp -rp $prompt $BASE_PATH/config/10-hysds.conf /etc/sysctl.d/
+sudo sysctl --system
+
+
 # copy global configs
 cp -rp $prompt $BASE_PATH/config/datasets.json $comp_dir/etc/
 cp -rp $prompt $BASE_PATH/config/logging.yml $comp_dir/etc/
