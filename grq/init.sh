@@ -55,14 +55,16 @@ mkdir -p $comp_dir/var/lib/elasticsearch/data \
 # initialize GRQ ES index with geonames pre-installed
 es_cluster_data=$comp_dir/var/lib/elasticsearch/data/products_cluster
 if [ ! -d "$es_cluster_data" ]; then
-  cd /tmp
+  tmp_dir=/tmp/.tmp_$$
+  mkdir -p $tmp_dir
+  cd $tmp_dir
   git clone https://github.com/hysds/puppet-grq.git
   cd puppet-grq/files
   cat elasticsearch-data.tbz2.* > elasticsearch-data.tbz2 
   tar xvfj elasticsearch-data.tbz2
   mv elasticsearch/products_cluster $es_cluster_data
   cd -
-  rm -rf /tmp/puppet-grq
+  rm -rf $tmp_dir
 fi
 
 
