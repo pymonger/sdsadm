@@ -55,6 +55,7 @@ mkdir -p $comp_dir/var/lib/elasticsearch/data \
 # initialize GRQ ES index with geonames pre-installed
 es_cluster_data=$comp_dir/var/lib/elasticsearch/data/products_cluster
 if [ ! -d "$es_cluster_data" ]; then
+  pwd=$PWD
   tmp_dir=/tmp/.tmp_$$
   mkdir -p $tmp_dir
   cd $tmp_dir
@@ -63,7 +64,7 @@ if [ ! -d "$es_cluster_data" ]; then
   cat elasticsearch-data.tbz2.* > elasticsearch-data.tbz2 
   tar xvfj elasticsearch-data.tbz2
   mv elasticsearch/products_cluster $es_cluster_data
-  cd -
+  cd $pwd
   rm -rf $tmp_dir
 fi
 
