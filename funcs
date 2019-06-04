@@ -117,7 +117,7 @@ run() {
   done
 
   cd $BASE_PATH/$comp
-  docker-compose run --no-deps \
+  docker-compose run --rm --no-deps \
     -v "$BASE_PATH/config/docker-entrypoint.sh:/docker-entrypoint.sh:ro" \
     $compose_opts $comp $@
 }
