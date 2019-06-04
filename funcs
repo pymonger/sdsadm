@@ -11,6 +11,8 @@ if [ -e "/usr/bin/sw_vers" ]; then
 else
   export ES_HEAP_SIZE=$(free -m | grep '^Mem:' | awk '{print $2}' | awk '{print $1/2}')
 fi
+IPADDRESS_ETH0=$(/usr/sbin/ifconfig $(/usr/sbin/route | awk '/default/{print $NF}') | grep 'inet ' | sed 's/addr://' | awk '{print $2}')
+FQDN=$IPADDRESS_ETH0
 export DATA_DIR=/data
 
 

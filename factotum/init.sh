@@ -62,3 +62,10 @@ cp -rp $prompt $BASE_PATH/config/inet_http_server.conf $comp_dir/etc/conf.d/inet
 
 # copy component-specific configs
 cp -rp $prompt factotum/config/* $comp_dir/etc/
+
+
+# populate supervisord templates
+for i in $(ls factotum/config/conf.d); do
+  sed "s/__IPADDRESS_ETH0__/$IPADDRESS_ETH0/g" factotum/config/conf.d/$i | \
+    sed "s/__FQDN__/$FQDN/g" > $comp_dir/etc/conf.d/$i
+done
