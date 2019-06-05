@@ -75,6 +75,7 @@ if [ -e "$comp_dir/etc" ]; then
 else
   mkdir -p $comp_dir/etc
 fi
+mkdir -p $comp_dir/etc/conf.d
 
 
 # increase limits
@@ -86,7 +87,15 @@ sudo sysctl --system
 cp -rp $prompt $BASE_PATH/config/datasets.json $comp_dir/etc/
 cp -rp $prompt $BASE_PATH/config/logging.yml $comp_dir/etc/
 cp -rp $prompt $BASE_PATH/config/redis-config $comp_dir/etc/
+cp -rp $prompt $BASE_PATH/config/inet_http_server.conf $comp_dir/etc/conf.d/inet_http_server.conf
 
 
 # copy component-specific configs
 cp -rp $prompt grq/config/* $comp_dir/etc/
+
+
+# populate supervisord templates
+for i in $(ls grq/config/conf.d); do
+  sed "s/__IPADDRESS_ETH0__/$IPADDRESS_ETH0/g" grq/config/conf.d/$i | \
+    sed "s/__FQDN__/$FQDN/g" > $comp_dir/etc/conf.d/$i
+done
