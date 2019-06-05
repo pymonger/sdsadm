@@ -1,4 +1,10 @@
-version: '2.4'
+version: '3.7'
+volumes:
+  redis_data:
+    driver: local
+    driver_opts:
+      device: "${HOME}/mozart/var/lib/redis"
+      o: bind
 services:
   mozart:
     hostname: mozart
@@ -31,8 +37,7 @@ services:
       - "${HOME}/mozart/etc/settings.cfg:/home/ops/mozart/etc/settings.cfg:ro"
       - "${HOME}/mozart/etc/utils.py:/home/ops/mozart/etc/job_creators/utils.py:ro"
       - "${HOME}/mozart/etc/utils_job.py:/home/ops/mozart/etc/job_creators/utils_job.py:ro"
-    volumes_from:
-      - redis
+      - "redis_data:/data/redis"
     links:
       - rabbitmq
       - redis
@@ -71,8 +76,8 @@ services:
       - "6379:6379"
     volumes:
       - "${HOME}/mozart/log/redis:/var/log/redis"
-      - "${HOME}/mozart/var/lib/redis:/data/redis"
       - "${HOME}/mozart/etc/redis-config:/etc/redis.conf:ro"
+      - "redis_data:/data/redis"
     #########################################################
     # The following are commented out until docker supports
     # them becoming namespaced:
