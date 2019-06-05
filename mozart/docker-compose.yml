@@ -16,9 +16,6 @@ services:
       - "80:80"
       - "443:443"
       - "5555:5555"
-      - "8888:8888"
-      - "8898:8898"
-      - "9001:9001"
     volumes:
       - "${HOME}/mozart/log:/home/ops/mozart/log"
       - "${HOME}/mozart/log/httpd:/etc/httpd/logs"
