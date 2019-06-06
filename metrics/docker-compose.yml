@@ -1,10 +1,4 @@
 version: '3.7'
-volumes:
-  redis_data:
-    driver: local
-    driver_opts:
-      device: "${HOME}/metrics/var/lib/redis"
-      o: bind,$ID,$GID
 services:
   metrics:
     hostname: metrics
@@ -26,7 +20,7 @@ services:
       - "${HOME}/metrics/etc/indexer.conf:/home/ops/metrics/etc/indexer.conf:ro"
       - "${HOME}/metrics/etc/kibana.yml:/home/ops/kibana/config/kibana.yml:ro"
       - "${HOME}/metrics/etc/docker-entrypoint.sh:/docker-entrypoint.sh:ro"
-      - "redis_data:/data/redis"
+      - "${HOME}/metrics/var/lib/redis:/data/redis"
     links:
       - redis
       - elasticsearch
@@ -40,7 +34,7 @@ services:
     volumes:
       - "${HOME}/metrics/log/redis:/var/log/redis"
       - "${HOME}/metrics/etc/redis-config:/etc/redis.conf:ro"
-      - "redis_data:/data/redis"
+      - "${HOME}/metrics/var/lib/redis:/data/redis"
     #########################################################
     # The following are commented out until docker supports
     # them becoming namespaced:
