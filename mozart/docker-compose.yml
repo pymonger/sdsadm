@@ -4,7 +4,7 @@ volumes:
     driver: local
     driver_opts:
       device: "${HOME}/mozart/var/lib/redis"
-      o: bind
+      o: bind,$ID,$GID
 services:
   mozart:
     hostname: mozart
