@@ -18,6 +18,7 @@ services:
       - "${HOME}/mozart/etc/celeryconfig.py:/home/ops/mozart/etc/celeryconfig.py:ro"
       - "${HOME}/mozart/etc/supervisord.conf:/home/ops/mozart/etc/supervisord.conf:ro"
       - "${HOME}/mozart/etc/datasets.json:/home/ops/mozart/etc/datasets.json:ro"
+      - "${HOME}/mozart/etc/conf.d:/home/ops/mozart/etc/conf.d:ro"
       - "${HOME}/mozart/etc/job_status.template:/home/ops/mozart/etc/job_status.template:ro"
       - "${HOME}/mozart/etc/worker_status.template:/home/ops/mozart/etc/worker_status.template:ro"
       - "${HOME}/mozart/etc/task_status.template:/home/ops/mozart/etc/task_status.template:ro"

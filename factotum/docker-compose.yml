@@ -19,5 +19,5 @@ services:
       - "${HOME}/.netrc:/home/ops/.netrc:ro"
       - "${HOME}/verdi/etc/celeryconfig.py:/home/ops/verdi/etc/celeryconfig.py:ro"
       - "${HOME}/verdi/etc/supervisord.conf:/home/ops/verdi/etc/supervisord.conf:ro"
-      - "${HOME}/verdi/etc/conf.d/factotum.conf:/home/ops/verdi/etc/conf.d/factotum.conf:ro"
       - "${HOME}/verdi/etc/datasets.json:/home/ops/verdi/etc/datasets.json:ro"
+      - "${HOME}/verdi/etc/conf.d:/home/ops/verdi/etc/conf.d:ro"

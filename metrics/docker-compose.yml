@@ -17,6 +17,7 @@ services:
       - "${HOME}/metrics/etc/celeryconfig.py:/home/ops/metrics/etc/celeryconfig.py:ro"
       - "${HOME}/metrics/etc/supervisord.conf:/home/ops/metrics/etc/supervisord.conf:ro"
       - "${HOME}/metrics/etc/datasets.json:/home/ops/metrics/etc/datasets.json:ro"
+      - "${HOME}/metrics/etc/conf.d:/home/ops/metrics/etc/conf.d:ro"
       - "${HOME}/metrics/etc/indexer.conf:/home/ops/metrics/etc/indexer.conf:ro"
       - "${HOME}/metrics/etc/kibana.yml:/home/ops/kibana/config/kibana.yml:ro"
       - "${HOME}/metrics/etc/docker-entrypoint.sh:/docker-entrypoint.sh:ro"

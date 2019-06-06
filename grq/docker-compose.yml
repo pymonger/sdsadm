@@ -18,6 +18,7 @@ services:
       - "${HOME}/sciflo/etc/celeryconfig.py:/home/ops/sciflo/etc/celeryconfig.py:ro"
       - "${HOME}/sciflo/etc/supervisord.conf:/home/ops/sciflo/etc/supervisord.conf:ro"
       - "${HOME}/sciflo/etc/datasets.json:/home/ops/sciflo/etc/datasets.json:ro"
+      - "${HOME}/sciflo/etc/conf.d:/home/ops/sciflo/etc/conf.d:ro"
       - "${HOME}/sciflo/etc/grq2_settings.cfg:/home/ops/sciflo/etc/grq2_settings.cfg:ro"
       - "${HOME}/sciflo/etc/tosca_settings.cfg:/home/ops/sciflo/etc/tosca_settings.cfg:ro"
     links:
