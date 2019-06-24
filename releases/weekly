@@ -1,0 +1,9 @@
+export RABBITMQ_TAG=3-management
+export REDIS_TAG=weekly
+export ELASTICSEARCH_TAG=1.7
+export ELK_TAG=6.4.2
+export MOZART_TAG=weekly
+export GRQ_TAG=weekly
+export METRICS_TAG=weekly
+export VERDI_TAG=weekly
+export CI_TAG=weekly
